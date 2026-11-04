@@ -16,7 +16,7 @@ A one-page academic homepage for Rebecca Jiaxiu Liu, PhD student in Finance at t
 
 The design idea: research topics are metro lines in Singapore's MRT palette and papers are stations on them, drawn as a line map. The Path section is a route through the owner's cities (Shanghai, Singapore, Oxford, Hong Kong, London, Stanford), each with a line drawing and a street plate in that city's sign style.
 
-Type: her name (the hero and the header) is set in Instrument Serif, through the `--name` token, at its single regular weight; everything else uses Archivo (headings, codes, plates), IBM Plex Sans (text) and IBM Plex Mono. Keep the serif for the name only.
+Type, chosen by the owner: Cormorant Garamond (`--name`) for her name and the section headings; Jost (`--sans`) for all running text, at 17 px with 1.5 line spacing; Archivo (`--display`) only where it imitates signage (station codes, street plates, talk-year mosaics); IBM Plex Mono for dates and data. Keep to these four.
 
 ## Most edits are content edits
 
