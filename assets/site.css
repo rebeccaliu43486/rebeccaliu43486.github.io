@@ -3,8 +3,9 @@
    Colour is data: saturated colour only marks a line. The six cities appear once each on the
    Path line, as a small line drawing and a street plate in that city's own sign style. */
 :root{
-  --bg:#f6f7f5; --surface:#ffffff; --wash:#eceeeb; --fg:#1b1f23; --muted:#565e66; --rule:#d6dad7; --rule-strong:#8a908c;
-  --today:#eff0ee; --today-swatch:#e7e9e6; --today-ink:#565e66; --blend:multiply;
+  /* Kopi, the light theme: the beige of coffee with condensed milk, warm against the blue of the portrait */
+  --bg:#f5eee4; --surface:#fdf9f3; --wash:#ebe2d4; --fg:#1f1b17; --muted:#5b544c; --rule:#dcd1c1; --rule-strong:#8c8377;
+  --today:#ede4d6; --today-swatch:#e5dacb; --today-ink:#5b544c; --blend:multiply;
   --mosaic-ink:#ffffff; --mosaic-edge:#000000;
   /* lines, from Singapore's MRT palette; red and green are kept apart for colour-blind readers */
   --l1:#d42e12; --l1-on:#ffffff;   /* North South red */
@@ -14,14 +15,15 @@
   --l5:#9d5b25; --l5-on:#ffffff;   /* Thomson–East Coast brown */
   --l6:#007d8b; --l6-on:#ffffff;   /* Jurong Region teal */
   --l7:#00843d; --l7-on:#ffffff;   /* East West green */
-  --l8:#769a11; --l8-on:#121a02;   /* Cross Island lime */
+  --l8:#729510; --l8-on:#121a02;   /* Cross Island lime, deepened to 3:1 on the beige */
   /* line colours as text (outlined codes for work in progress), each at least 4.6:1 on the page */
-  --l1-tx:#d42e12; --l2-tx:#005ec4; --l3-tx:#a06200; --l4-tx:#9900aa; --l5-tx:#9d5b25; --l6-tx:#007b89; --l7-tx:#00813c; --l8-tx:#587a0d;
+  --l1-tx:#cc2c11; --l2-tx:#005ec4; --l3-tx:#985d00; --l4-tx:#9900aa; --l5-tx:#9d5b25; --l6-tx:#007684; --l7-tx:#007c3a; --l8-tx:#54750c;
   --m1:#2c6e5e; --m2:#8a6420; --m3:#3b5f8a; --m4:#7a4560;   /* Hong Kong station-mosaic tones */
   --g1:#c9a24a; --g2:#b8913a; --g3:#d9b65c; --g4:#a57e2e;   /* Stanford Memorial Church golds */
   --sg-plate:#1e6b47; --sg-ink:#ffffff; --sh-plate:#1f4e9a; --sh-ink:#ffffff; --ox-board:#002147; --ox-gilt:#c9a44c;
   --su-bronze:#6b4f2e; --su-ink:#fff4dc; --su-edge:#5e4527; --ldn-red:#c8102e; --plate-bg:#ffffff; --plate-ink:#111111;
   --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --name:"Instrument Serif","Times New Roman",Times,serif;   /* the name: hero, header and the no-script header */
   --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --serif-caps:"EB Garamond",Georgia,"Times New Roman",serif;
@@ -79,7 +81,7 @@ abbr{text-decoration:none}
 html:not(.js) main section,html:not(.js) .bar .seg,html:not(.js) .skip,html:not(.js) .foot{display:none}
 html:not(.js) #source{max-width:var(--frame);margin:0 auto;padding:0 16px 48px}
 .nojs{padding-block:32px 24px}
-.nojs h1{font:780 clamp(32px,7vw,56px)/1 var(--display);letter-spacing:-.02em}
+.nojs h1{font:400 clamp(40px,7vw,64px)/1.05 var(--name);letter-spacing:-.01em}
 .nojs p{margin-top:10px;font-size:17px}
 .nojs a+a{margin-left:16px}
 .skip{position:absolute;left:max(16px,env(safe-area-inset-left,0px));top:calc(env(safe-area-inset-top,0px) + 8px);z-index:80;padding:8px 14px;border-radius:8px;background:var(--fg);color:var(--bg);font-weight:600;text-decoration:none;transform:translateY(-200%);transition:transform .2s}
@@ -90,7 +92,7 @@ html:not(.js) #source{max-width:var(--frame);margin:0 auto;padding:0 16px 48px}
 .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 90%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
 .bar.scrolled,.bar.menu-open{border-bottom-color:var(--rule)}
 .bar-in{height:var(--bar-h);display:flex;align-items:center;gap:14px;overflow:hidden}
-.brand{font:700 16px/1 var(--display);font-stretch:108%;letter-spacing:-.01em;text-decoration:none;white-space:nowrap;margin-right:auto;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.brand{font:400 21px/1.2 var(--name);letter-spacing:.005em;text-decoration:none;white-space:nowrap;margin-right:auto;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .navlinks{position:relative;display:flex;align-items:center;flex:none}
 .navlinks a{padding:8px 10px;font-size:14.5px;color:var(--muted);text-decoration:none;transition:color .2s;white-space:nowrap}
 .navlinks a:hover,.navlinks a.on{color:var(--fg)}
@@ -122,16 +124,20 @@ html:not(.js) #source{max-width:var(--frame);margin:0 auto;padding:0 16px 48px}
 .note{margin-top:18px;padding:10px 14px;border:1px dashed var(--rule-strong);border-radius:8px;font-size:13.5px;color:var(--muted)}
 
 /* ---------- hero ---------- */
-.hero{padding-block:48px 8px}
-.hero-grid{display:grid;grid-template-columns:168px minmax(0,1fr);gap:0 56px;align-items:start}
-.portrait{position:relative;width:168px;aspect-ratio:1;border-radius:4px;background:var(--wash);box-shadow:inset 0 0 0 1px var(--rule);overflow:hidden;display:grid;place-items:center;margin-top:10px}
-.portrait img{width:100%;height:100%;object-fit:cover;display:block}
-.portrait .ph{font:700 42px/1 var(--display);font-stretch:112%;color:var(--muted);letter-spacing:-.02em}
+.hero{--name-size:clamp(44px,6.6vw,80px);padding-block:48px 8px}
+/* a 3:4 portrait column beside the text: the photo's top edge lines up with the cap height of the name,
+   and at laptop widths its foot meets the last baseline of the bio */
+.hero-grid{display:grid;grid-template-columns:clamp(200px,28vw,266px) minmax(0,1fr);gap:0 clamp(32px,5vw,56px);align-items:start}
+.portrait{position:relative;width:100%;aspect-ratio:3 / 4;border-radius:4px;background:var(--wash);box-shadow:inset 0 0 0 1px var(--rule);overflow:hidden;display:grid;place-items:center;margin-top:calc(var(--name-size) * .12)}
+.hero-grid:has(.blind) .portrait{margin-top:2px}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block}
+.portrait .ph{font:400 72px/1 var(--name);color:var(--muted)}
 .portrait .ph-note{position:absolute;bottom:10px;font:500 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .blind{display:inline-flex;align-items:center;gap:10px;font:600 12.5px/1.2 var(--sans);letter-spacing:.1em;text-transform:uppercase}
 .ring{width:12px;height:12px;border-radius:50%;border:2.5px solid var(--fg);flex:none;animation:ring 2.4s var(--ease) 1}
 @keyframes ring{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--fg) 35%,transparent)}100%{box-shadow:0 0 0 12px transparent}}
-.hero h1{font:780 clamp(40px,7vw,72px)/.95 var(--display);font-stretch:112%;letter-spacing:-.025em;margin-top:16px;text-wrap:balance;overflow-wrap:anywhere}
+.hero h1{font:400 var(--name-size)/1 var(--name);letter-spacing:-.01em;text-wrap:balance;overflow-wrap:anywhere}
+.hero .blind + h1{margin-top:16px}
 .native{font-weight:500;font-size:.38em;line-height:1;color:var(--muted);letter-spacing:0;vertical-align:.4em}
 [lang|="zh-Hant"]{font-family:var(--hant-hk)}
 .role{margin-top:14px;font-size:18px;color:var(--muted)}
@@ -367,6 +373,12 @@ button.figbtn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--rule-s
 .stop:not(:last-child)::after{background:var(--fg);transform-origin:top;transform:scaleY(var(--f,0))}
 .stop.now::before{background:repeating-linear-gradient(to bottom,var(--rule-strong) 0 4px,transparent 4px 10px)}
 .stop.now::after{display:none}
+/* newest first: the current stop leads, so its line down to older stops is solid,
+   and the dashed (future) segment belongs to a "Next station" above it */
+.route.rev .stop.now::before{background:var(--rule)}
+.route.rev .stop.now::after{display:block}
+.route.rev .stop.next::before{background:repeating-linear-gradient(to bottom,var(--rule-strong) 0 4px,transparent 4px 10px)}
+.route.rev .stop.next::after{display:none}
 .node{position:relative;z-index:1;width:18px;height:18px;margin:6px 0 0 6px;border-radius:50%;border:3.5px solid var(--rule-strong);background:var(--bg);transition:border-color .45s}
 .stop.on .node{border-color:var(--fg)}
 .stop.tick .node{width:14px;height:6px;border-radius:2px;border:0;background:var(--rule-strong);margin:12px 0 0 8px}
@@ -467,16 +479,22 @@ button.figbtn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--rule-s
 @media (max-width:640px){
   :root{--bar-h:56px}
   body{font-size:16px}
-  .hero{padding-top:28px}
-  /* the photo sits beside the eyebrow and name, so the first screen reaches the research lines */
-  .hero-grid{grid-template-columns:76px minmax(0,1fr);gap:0 18px;align-items:end}
+  .hero{--name-size:clamp(34px,10.4vw,46px);padding-top:28px}
+  /* the portrait sits beside the name, role and facts, so the bio still starts on the first screen;
+     the last row (1fr) takes whatever height the photo has over that text */
+  .hero-grid{grid-template-columns:clamp(100px,34vw,150px) minmax(0,1fr);grid-template-rows:repeat(5,auto) 1fr;gap:0 16px}
   .hero-text{display:contents}
-  .portrait{grid-column:1;grid-row:1 / 3;width:76px;margin:0 0 4px}
-  .portrait .ph{font-size:24px}
+  .portrait{grid-column:1;grid-row:1 / 7}
+  .portrait .ph{font-size:44px}
   .portrait .ph-note{display:none}
-  .hero .blind{grid-column:2;grid-row:1;align-self:end}
-  .hero h1{grid-column:2;grid-row:2;margin-top:8px;font-size:clamp(32px,10vw,42px)}
-  .role,.facts,.places,.bio,.links,.jmpline{grid-column:1 / -1}
+  .hero .blind{grid-column:2;grid-row:1}
+  .hero h1{grid-column:2;grid-row:2}
+  .role{grid-column:2;grid-row:3;margin-top:10px;font-size:15px;line-height:1.45}
+  .facts{grid-column:2;grid-row:4;font-size:14.5px;line-height:1.45}
+  .places,.bio,.links,.jmpline{grid-column:1 / -1}
+  .places{margin-top:16px;font-size:14.5px}
+  /* several facts (fields, an expected date) are too long for the narrow column: they run full width */
+  .hero .facts:has(.sep){grid-column:1 / -1;grid-row:auto;margin-top:16px}
   .bio{font-size:16.5px}
   .links{gap:10px 16px}
   .spot{grid-template-columns:1fr;gap:18px}
@@ -504,9 +522,17 @@ button.figbtn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--rule-s
   .stop.now .node,.stop.tick.now .node{margin-left:3px}
   .bib pre{padding-top:44px;padding-right:16px}
 }
+/* wide phones: the name fits on one line, so the places join the text beside the photo */
+@media (min-width:469px) and (max-width:640px){
+  .hero .places{grid-column:2;grid-row:5;margin-top:10px}
+}
 @media (max-width:480px){
   .bar-in > .theme{display:none}
   .menu-theme{display:flex}
+}
+@media (max-width:340px){
+  /* very narrow phones: the role takes four lines beside the photo, so the facts go below it */
+  .hero .facts{grid-column:1 / -1;grid-row:auto;margin-top:16px}
 }
 @media (max-width:420px){
   .bar-in > .cvpill{display:none}
@@ -525,6 +551,8 @@ button.figbtn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--rule-s
   .stop:not(:last-child)::before{background:GrayText}
   .stop:not(:last-child)::after{background:CanvasText}
   .stop.tick .node{background:CanvasText}
+  .route.rev .stop.now::before{background:GrayText}
+  .route.rev .stop.now::after{background:CanvasText}
   .lg-today{outline:1px solid CanvasText}
   .tip{border:1px solid CanvasText}
   .cap{border:1px solid CanvasText}

@@ -15,11 +15,10 @@ Everything you change is in the **CONTENT** block of `index.html`, between the `
 
 | File | What it is |
 | --- | --- |
-| `cv.pdf` | A public version of your CV, without your phone number or other private details. Put it at the top level next to `index.html`, and overwrite it in place when you update it, so the link never breaks. |
-| `assets/img/photo.jpg` | Optional photo, square, about 400 px. Then set `"photo": "assets/img/photo.jpg"`. |
+| `cv.pdf` | A public version of your CV, without your phone number or other private details. Put it at the top level next to `index.html`, then set `"url": "cv.pdf"` (and `"updated"`) in the `cv` setting: until then the CV links stay hidden. Overwrite the file in place when you update it, so the link never breaks. |
 | `papers/…` | Your paper PDFs, linked from each paper's PDF button. |
 
-The school logos for the Path are already in `assets/img/` (`shsid.png` and `raffles.png`).
+Your photo (`assets/img/photo.jpg`, a 3:4 portrait, 600 × 800 px) and the school logos for the Path (`shsid.png` and `raffles.png`) are already in `assets/img/`. To change the photo, replace `photo.jpg` with another 3:4 portrait of about the same size.
 
 ## Publishing on GitHub Pages (free)
 

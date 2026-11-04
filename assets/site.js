@@ -81,6 +81,8 @@ const nowrapYears = html => String(html).replace(/(\d{4})–(\d{2,4}|now)/g, '<s
    Stops without years (e.g. a school shown only by its logo) are never "now". */
 const pathItems = () => { const b = SRC.querySelector('[data-block="path"]'); return b ? Array.from(b.querySelectorAll('li')) : []; };
 const isOpenStop = d => !!d.start && !d.end;
+/* "pathOrder": "newest" shows the Path and the hero's "Before that" cities newest first */
+const NEWEST_FIRST = String(SITE.pathOrder || '').toLowerCase() === 'newest';
 const HERE = (() => { const li = pathItems().filter(x => isOpenStop(x.dataset)).pop(); return li ? cid(li.dataset.city) : 'singapore'; })();
 const BASE = Object.assign({ name: 'Singapore', tz: 'Asia/Singapore', zone: 'SGT' }, CITY[HERE] || cityOf(HERE));
 const offsetLabel = tz => { const o = utcOffset(tz); return o ? o.label : ''; };   // called only at render time
@@ -356,14 +358,15 @@ function renderHero() {
   const path = items('path');
   const currentIx = path.map(li => isOpenStop(li.dataset)).lastIndexOf(true);
   // every earlier city, once each, in the order first visited (the current stop itself is left out)
-  const before = [...new Set(path.filter((li, i) => i !== currentIx).map(li => cityOf(li.dataset.city).name))].filter(Boolean);
+  const earlier = path.filter((li, i) => i !== currentIx);
+  const before = [...new Set((NEWEST_FIRST ? earlier.reverse() : earlier).map(li => cityOf(li.dataset.city).name))].filter(Boolean);
   const words = SITE.name.split(/\s+/).filter(Boolean);
   const initials = words.length > 1 ? words[0][0] + words[words.length - 1][0] : (words[0] || '').slice(0, 2);
   const facts = [SITE.fields && SITE.fields.length ? `Fields: ${esc([].concat(SITE.fields).join(', '))}` : '', SITE.expected ? `PhD expected ${esc(SITE.expected)}` : ''].concat([].concat(SITE.facts || []).map(esc)).filter(Boolean);
   const cvLabel = `CV, PDF${SITE.cv.updated ? ', updated ' + SITE.cv.updated : ''}`;
   $('#about').innerHTML = `
   <div class="hero-grid">
-    ${SITE.photo ? `<figure class="portrait rise"><img src="${esc(SITE.photo)}" alt="${esc(SITE.name)}" width="168" height="168"></figure>` : `<div class="portrait rise" aria-hidden="true"><span class="ph">${esc(initials)}</span>${SITE.preview ? '<span class="ph-note">your photo</span>' : ''}</div>`}
+    ${SITE.photo ? `<figure class="portrait rise"><img src="${esc(SITE.photo)}" alt="${esc(SITE.name)}" width="300" height="400"></figure>` : `<div class="portrait rise" aria-hidden="true"><span class="ph">${esc(initials)}</span>${SITE.preview ? '<span class="ph-note">your photo</span>' : ''}</div>`}
     <div class="hero-text">
       ${SITE.onMarket ? `<p class="blind rise r1"><span class="ring" aria-hidden="true"></span>On the ${esc(SITE.marketYear)} job market</p>` : ''}
       <h1 class="rise r1">${esc(SITE.name)}${SITE.nativeName ? ` <span class="native" lang="${esc(SITE.nativeLang || 'zh-Hans')}">${esc(SITE.nativeName)}</span>` : ''}</h1>
@@ -702,10 +705,14 @@ function plate(city, d) {
 function renderPath() {
   const list = items('path'); const sec = $('#path');
   if (!list.length) { sec.remove(); return; }
-  const stops = list.map(li => Object.assign({}, li.dataset, { city: cid(li.dataset.city), raw: li.dataset.city }));
-  const current = stops.map(isOpenStop).lastIndexOf(true);   // only the last open-ended stop is "now"
-  sec.innerHTML = head('Path so far', `<span class="sec-count">${stops.length} stops, oldest first</span>`, list) + `
-  <ol class="route" id="route">
+  const dated = list.map(li => Object.assign({}, li.dataset, { city: cid(li.dataset.city), raw: li.dataset.city }));
+  const nowStop = dated[dated.map(isOpenStop).lastIndexOf(true)];   // only the last open-ended stop is "now"
+  const stops = NEWEST_FIRST ? dated.slice().reverse() : dated;
+  const current = stops.indexOf(nowStop);
+  const nextStop = SITE.onMarket ? `<li class="stop next"><span class="node" aria-hidden="true"></span><span class="glyph"></span><div class="sbody"><p class="yrs"><span>Next station</span></p><h3>On the ${esc(SITE.marketYear)} job market</h3>${spotlight ? `<p class="place">Job market paper: <a href="#p-${spotlight.id}" data-go="p-${spotlight.id}">${esc(spotlight.short)}</a></p>` : ''}</div></li>` : '';
+  sec.innerHTML = head('Path so far', `<span class="sec-count">${stops.length} stops, ${NEWEST_FIRST ? 'newest' : 'oldest'} first</span>`, list) + `
+  <ol class="route${NEWEST_FIRST ? ' rev' : ''}" id="route">
+    ${NEWEST_FIRST ? nextStop : ''}
     ${stops.map((d, i) => {
       const c = cityOf(d.raw), here = i === current, prev = stops[i - 1], same = prev && prev.city === d.city;
       const pl = d.logo ? '' : plate(d.city, d);   // a logo (a school crest, say) takes the place of the street plate
@@ -716,7 +723,7 @@ function renderPath() {
         <span class="node" aria-hidden="true"></span>
         ${same ? '<span class="glyph"></span>' : icon(d.city)}
         <div class="sbody">
-          <p class="yrs">${yrs ? `<span>${yrs}</span>` : ''}<span class="cityname${yrs ? '' : ' solo'}">${cityName(c.name)}</span>${here ? '<span class="you">You are here</span>' : ''}</p>
+          <p class="yrs">${yrs ? `<span>${yrs}</span>` : ''}<span class="cityname${yrs ? '' : ' solo'}">${cityName(c.name)}</span>${here ? `<span class="you">${esc(SITE.hereLabel || 'Now arriving')}</span>` : ''}</p>
           ${pl ? `<p class="plate-row">${pl}</p>` : ''}
           ${d.logo ? `<p class="logo-row"><img class="slogo" src="${esc(d.logo)}" alt="${esc(d.logoAlt || '')}"${d.logoAlt ? ` title="${esc(d.logoAlt)}"` : ''} data-ph="${esc(initialsOf(d.logoAlt))}" decoding="async"></p>` : ''}
           ${d.role ? `<h3>${esc(d.role)}</h3>` : ''}
@@ -726,7 +733,7 @@ function renderPath() {
         </div>
       </li>`;
     }).join('')}
-    ${SITE.onMarket ? `<li class="stop next"><span class="node" aria-hidden="true"></span><span class="glyph"></span><div class="sbody"><p class="yrs"><span>Next station</span></p><h3>On the ${esc(SITE.marketYear)} job market</h3>${spotlight ? `<p class="place">Job market paper: <a href="#p-${spotlight.id}" data-go="p-${spotlight.id}">${esc(spotlight.short)}</a></p>` : ''}</div></li>` : ''}
+    ${NEWEST_FIRST ? '' : nextStop}
   </ol>`;
   watchLogos(sec);
 }
