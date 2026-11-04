@@ -713,7 +713,7 @@ function renderPath() {
   const current = stops.indexOf(nowStop);
   const nextStop = SITE.onMarket ? `<li class="stop next"><span class="node" aria-hidden="true"></span><span class="glyph"></span><div class="sbody"><p class="yrs"><span>Next station</span></p><h3>On the ${esc(SITE.marketYear)} job market</h3>${spotlight ? `<p class="place">Job market paper: <a href="#p-${spotlight.id}" data-go="p-${spotlight.id}">${esc(spotlight.short)}</a></p>` : ''}</div></li>` : '';
   const title = (blocks('path').dataset.title || '').trim() || 'Path so far';
-  sec.innerHTML = head(esc(title), `<span class="sec-count">${stops.length} stops, ${NEWEST_FIRST ? 'newest' : 'oldest'} first</span>`, list) + `
+  sec.innerHTML = head(esc(title), '', list) + `
   <ol class="route${NEWEST_FIRST ? ' rev' : ''}" id="route">
     ${NEWEST_FIRST ? nextStop : ''}
     ${stops.map((d, i) => {
