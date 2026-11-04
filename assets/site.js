@@ -83,6 +83,8 @@ const pathItems = () => { const b = SRC.querySelector('[data-block="path"]'); re
 const isOpenStop = d => !!d.start && !d.end;
 /* "pathOrder": "newest" shows the Path and the hero's "Before that" cities newest first */
 const NEWEST_FIRST = String(SITE.pathOrder || '').toLowerCase() === 'newest';
+/* the badge on the current stop; "hereLabel": "" leaves it off */
+const HERE_LABEL = SITE.hereLabel === undefined ? 'Now arriving' : String(SITE.hereLabel).trim();
 const HERE = (() => { const li = pathItems().filter(x => isOpenStop(x.dataset)).pop(); return li ? cid(li.dataset.city) : 'singapore'; })();
 const BASE = Object.assign({ name: 'Singapore', tz: 'Asia/Singapore', zone: 'SGT' }, CITY[HERE] || cityOf(HERE));
 const offsetLabel = tz => { const o = utcOffset(tz); return o ? o.label : ''; };   // called only at render time
@@ -710,7 +712,8 @@ function renderPath() {
   const stops = NEWEST_FIRST ? dated.slice().reverse() : dated;
   const current = stops.indexOf(nowStop);
   const nextStop = SITE.onMarket ? `<li class="stop next"><span class="node" aria-hidden="true"></span><span class="glyph"></span><div class="sbody"><p class="yrs"><span>Next station</span></p><h3>On the ${esc(SITE.marketYear)} job market</h3>${spotlight ? `<p class="place">Job market paper: <a href="#p-${spotlight.id}" data-go="p-${spotlight.id}">${esc(spotlight.short)}</a></p>` : ''}</div></li>` : '';
-  sec.innerHTML = head('Path so far', `<span class="sec-count">${stops.length} stops, ${NEWEST_FIRST ? 'newest' : 'oldest'} first</span>`, list) + `
+  const title = (blocks('path').dataset.title || '').trim() || 'Path so far';
+  sec.innerHTML = head(esc(title), `<span class="sec-count">${stops.length} stops, ${NEWEST_FIRST ? 'newest' : 'oldest'} first</span>`, list) + `
   <ol class="route${NEWEST_FIRST ? ' rev' : ''}" id="route">
     ${NEWEST_FIRST ? nextStop : ''}
     ${stops.map((d, i) => {
@@ -723,7 +726,7 @@ function renderPath() {
         <span class="node" aria-hidden="true"></span>
         ${same ? '<span class="glyph"></span>' : icon(d.city)}
         <div class="sbody">
-          <p class="yrs">${yrs ? `<span>${yrs}</span>` : ''}<span class="cityname${yrs ? '' : ' solo'}">${cityName(c.name)}</span>${here ? `<span class="you">${esc(SITE.hereLabel || 'Now arriving')}</span>` : ''}</p>
+          <p class="yrs">${yrs ? `<span>${yrs}</span>` : ''}<span class="cityname${yrs ? '' : ' solo'}">${cityName(c.name)}</span>${here && HERE_LABEL ? `<span class="you">${esc(HERE_LABEL)}</span>` : ''}</p>
           ${pl ? `<p class="plate-row">${pl}</p>` : ''}
           ${d.logo ? `<p class="logo-row"><img class="slogo" src="${esc(d.logo)}" alt="${esc(d.logoAlt || '')}"${d.logoAlt ? ` title="${esc(d.logoAlt)}"` : ''} data-ph="${esc(initialsOf(d.logoAlt))}" decoding="async"></p>` : ''}
           ${d.role ? `<h3>${esc(d.role)}</h3>` : ''}

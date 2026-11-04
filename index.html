@@ -11,7 +11,7 @@
 <meta property="og:title" content="Rebecca Jiaxiu Liu · PhD student in Finance">
 <meta property="og:description" content="I am a PhD student in Finance at the National University of Singapore. Before the PhD, I spent two years as a predoctoral research fellow at Stanford Graduate School of Business, working with Amit Seru and Vikrant Vig on projects in banking, corporate finance and innovation.">
 <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; rx=&quot;7&quot; fill=&quot;%231b1f23&quot;/&gt;&lt;path d=&quot;M6 21H26&quot; stroke=&quot;%23d42e12&quot; stroke-width=&quot;3.2&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;path d=&quot;M6 12H26&quot; stroke=&quot;%23005ec4&quot; stroke-width=&quot;3.2&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;rect x=&quot;12.5&quot; y=&quot;7.5&quot; width=&quot;7&quot; height=&quot;18&quot; rx=&quot;3.5&quot; fill=&quot;%23f5eee4&quot; stroke=&quot;%231b1f23&quot; stroke-width=&quot;1.6&quot;/&gt;&lt;/svg&gt;">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Rebecca Jiaxiu Liu", "jobTitle": "PhD student in Finance", "affiliation": {"@type": "Organization", "name": "National University of Singapore"}, "alumniOf": [{"@type": "CollegeOrUniversity", "name": "University of Oxford"}, {"@type": "CollegeOrUniversity", "name": "London School of Economics and Political Science"}], "email": "mailto:rebeccajiaxiuliu@gmail.com", "sameAs": ["https://github.com/rebeccaliu43486"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Rebecca Jiaxiu Liu", "jobTitle": "PhD student in Finance", "affiliation": {"@type": "Organization", "name": "National University of Singapore"}, "email": "mailto:rebeccajiaxiuliu@gmail.com", "sameAs": ["https://github.com/rebeccaliu43486"]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script>
@@ -28,7 +28,7 @@
 })();
 </script>
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Jost:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:wght@500;600&display=swap"></noscript>
-<link rel="stylesheet" href="assets/site.css?v=064b8815">
+<link rel="stylesheet" href="assets/site.css?v=e4f7e814">
 </head>
 <body>
 <a class="skip" href="#papers">Skip to papers</a>
@@ -94,7 +94,7 @@
        onMarket    true shows the job market paper, References and the "Next station"
        pathOrder   "newest" shows the Path and the "Before that" cities newest first;
                    "oldest" oldest first (the PATH list below always stays oldest first)
-       hereLabel   the badge on your current Path stop, e.g. "Now arriving"
+       hereLabel   a badge on your current Path stop, e.g. "Now arriving"; "" for none
        photo       your photo, e.g. "assets/img/photo.jpg" (portrait, 3:4, about 600 × 800 px)
        cv          { "url": "cv.pdf", "updated": "…" }; "url": "" (or "cv": null) hides
                    every CV link, e.g. until a public cv.pdf is added
@@ -114,7 +114,7 @@
   "groupOrder": ["working", "pubs", "wip"],
   "onMarket": false,
   "pathOrder": "newest",
-  "hereLabel": "Now arriving",
+  "hereLabel": "",
   "marketYear": "",
   "photo": "assets/img/photo.jpg",
   "cv": { "url": "", "updated": "" },
@@ -284,6 +284,7 @@
 
   <!-- PATH: oldest first.
        data-city:  singapore | shanghai | hongkong | london | oxford | stanford
+       data-title on the list is the section heading.
        data-kind:  degree | work | internship | exchange | visiting | school.
                    Internship, exchange, visiting and school stops are drawn lighter.
        data-start / data-end: years. A stop with a start and no end is the current one, with the hereLabel badge.
@@ -293,7 +294,7 @@
        London data-street plus data-district (e.g. WC2); without a street they show no plate.
        Singapore always shows its city plate; Oxford and Stanford show a city board, whose text
        data-board can replace. -->
-  <ol data-block="path">
+  <ol data-block="path" data-title="We’re arriving at…">
     <li data-city="shanghai" data-kind="school" data-logo="assets/img/shsid.png" data-logo-alt="Shanghai High School International Division"></li>
     <li data-city="singapore" data-kind="school" data-logo="assets/img/raffles.png" data-logo-alt="Raffles Institution"></li>
     <li data-city="oxford" data-kind="degree" data-start="2020" data-end="2023" data-role="BA in Economics and Management" data-place="University of Oxford, Merton College" data-note="First Class Honours, ranked 2nd in a cohort of 84."></li>
@@ -312,6 +313,6 @@
 </div>
 
 
-<script src="assets/site.js?v=064b8815"></script>
+<script src="assets/site.js?v=e4f7e814"></script>
 </body>
 </html>

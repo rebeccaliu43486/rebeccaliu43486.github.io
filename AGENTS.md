@@ -24,14 +24,14 @@ Change the CONTENT block in `index.html`. The engine builds everything from it. 
 
 | Block | Markup | Main attributes |
 | --- | --- | --- |
-| Settings | `<script type="application/json" id="site">` | `preview`, `name`, `role`, `institution`, `facts`, `fields`, `expected`, `onMarket`, `marketYear`, `pathOrder` (`"newest"` shows the Path and the hero's "Before that" cities newest first), `hereLabel` (the badge on the current Path stop, "Now arriving"), `photo`, `cv` (`url`, `updated`; an empty `url` hides every CV link), `email`, `office`, `timezone`, `updated`, `profiles` |
+| Settings | `<script type="application/json" id="site">` | `preview`, `name`, `role`, `institution`, `facts`, `fields`, `expected`, `onMarket`, `marketYear`, `pathOrder` (`"newest"` shows the Path and the hero's "Before that" cities newest first), `hereLabel` (an optional badge on the current Path stop; `""` for none), `photo`, `cv` (`url`, `updated`; an empty `url` hides every CV link), `email`, `office`, `timezone`, `updated`, `profiles` |
 | Bio | `<div data-block="bio">` | 2–4 sentences in the first person |
 | Research lines | `<ol data-block="topics">` | `data-id`, `data-code` (two letters), `data-blurb`; at most 6 lines |
 | Papers | `<article class="paper" id="…">` | `data-status`, `data-date` (YYYY-MM), `data-topics` (main line first), `data-short`, `data-fig`, `data-version`, `data-stage`, `data-journal`, `data-volume`, `data-pages`, `data-doi`; own name in `<b>`, coauthors in `<a>` |
 | Research experience | `<ol data-block="research">`: one `<li>` per role, newest first, with a `<ul>` of projects inside | `data-start`, `data-end`, `data-role`, `data-place`, `data-with`, `data-project`, `data-datasets` |
 | Skills | `<ul data-block="skills">` | `data-label` on each line |
 | News, Code, Teaching, Service, Talks, Awards | `<ul data-block="…">`, one `<li>` per entry | News shows the 4 newest items from the last 12 months; talks dated after today show as Scheduled |
-| Path | `<ol data-block="path">`, always oldest first in the source (`pathOrder` sets the display order) | `data-city` (`singapore`, `shanghai`, `hongkong`, `london`, `oxford`, `stanford`), `data-kind` (`degree`, `work`, `internship`, `exchange`, `visiting`, `school`), `data-start`, `data-end`, `data-role`, `data-place`, `data-note`, `data-logo`, `data-logo-alt`, and per city: `data-street` + `data-street-local` (Shanghai, Hong Kong), `data-street` + `data-district` (London), `data-board` (Oxford, Stanford) |
+| Path | `<ol data-block="path" data-title="…">`, always oldest first in the source (`pathOrder` sets the display order; `data-title` is the heading, now “We’re arriving at…”) | `data-city` (`singapore`, `shanghai`, `hongkong`, `london`, `oxford`, `stanford`), `data-kind` (`degree`, `work`, `internship`, `exchange`, `visiting`, `school`), `data-start`, `data-end`, `data-role`, `data-place`, `data-note`, `data-logo`, `data-logo-alt`, and per city: `data-street` + `data-street-local` (Shanghai, Hong Kong), `data-street` + `data-district` (London), `data-board` (Oxford, Stanford) |
 | References | `<ul data-block="references">` | Shown only while `onMarket` is true |
 
 Station codes (BK1, IN2, …) are numbered by date along each line. Adding an older paper renumbers the newer ones on that line. To withdraw a paper, keep it with `data-hidden` so the other codes stay put.
